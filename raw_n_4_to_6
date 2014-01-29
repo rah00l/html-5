@@ -1,0 +1,24 @@
+A. HTML 5 
+D	1- form page (all fields are manditory so add required for every tag)
+D	2- table border prepare layout 
+D	3- Book My Movies! -- Heading for form page
+D	4- add fieldset along with legend(Booking details)
+D	5- Choose Movie -- drop-down
+D	6- choose Cinema -- using multiple + datalist with multiple options
+d	7- select date -- date field (mm/dd/yyyy) with datepicker
+D	8- Enter Email -- by email type + place-holder for sample showing
+D	9- Number of tickets -- using number type 
+	10- Total Price -- cal by [ticketPrice*number of tickets] for this use web-workers
+	    also apply discount on ticket price 
+	     5%  = (if the date chosen is on a weekday)
+	     new Date().getDay(); // 0-Sun,1-Mon ....6-Sat.
+	     10% = (if user’s list of booked shows is >=10 till date)
+	     
+	     The final value is to be displayed back on the form in field “Total Price”.
+	     
+	11- Once clicked on "Book Tickets" = movie name must be added to local storage 
+	                                     and same page must be displayed by clearing 
+	                                     the form values.
+	                                     
+ 	12- "right side of the page" = list of movies booked till date. 	                                     
+	

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
+<script>
+
+$(document).ready(function() {
+ 
+    $("#no_of_tickets").blur(function(){
+    var noOfTickets = parseInt($("#no_of_tickets").val());
+//	var totalAmount = calTotalPrice(noOfTickets);
+	var selectedDate = new Date($("#select_date").val());
+	var noOfBookedMovies = $("ol li").length;	
+	if(window.Worker)
+	{
+	  worker = new Worker("scripts/calculations.js");
+	  worker.onmessage = messageHandler;
+	  worker.onerror = errorHandler;
+	  worker.postMessage({'no_of_tickets': noOfTickets, 'selected_date': selectedDate, 'no_of_booked_movies': noOfBookedMovies});
+	}
+	
+	function messageHandler(event){
+		var totalAmount = event.data;		
+   	$("#result").text(totalAmount);
+	   $("#result").css({'background-color': 'yellow'});
+	}
+	
+	function errorHandler(errorObj){
+		alert(errorObj.message);	
+	}
+	});
+	
+	if(window.localStorage){
+	  //localStorage.removeItem('choosenMovie');
+	    var movieList = localStorage.getItem('choosenMovie');
+	    result = String(movieList).split(',');
+
+		var newResult = result.filter(function(val) {
+					return !(val === "" || typeof val == "undefined" || val === null);
+		});	 
+		
+		for (i=0;i<newResult.length;i++){
+			$('#movieList').append('<li>'+newResult[i]+'</li>');
+		}
+	} 
+	
+	$("#bookMovieForm").submit(function( event ) {
+		var selectedMovie = $("#selectMovie").val();
+		if(window.localStorage){
+			var movieList = [];
+			movieList.push(localStorage.getItem('choosenMovie'));
+			movieList.push(selectedMovie);
+       	localStorage.setItem('choosenMovie',movieList);
+		}
+	
+});
+});
+
+</script>
+<style>
+h2 {color: purple;}
+table td {padding-top: 10px; padding-bottom:10px; padding-left:10px; padding-right:20px;}
+</style>
+<title>Subjective Assignment for Nugget 4 to 6</title>
+</head>
+<body>
+<fieldset>
+<h2>Book My Movies!</h2>
+<div style="width: 100%;">
+<div style="float:left; width:50%;">
+<fieldset>
+<legend>Booking Details</legend>
+<form method="post" id="bookMovieForm">
+<table>
+<tr><td>
+<label>Choose Movie</label></td>
+<td><select required autofocus id="selectMovie">
+<option value=""></option>
+<option value="Jai Ho">Jai Ho (U/A)</option>
+<option value="Dedh Ishqiya">Dedh Ishqiya (U/A)</option>
+<option value="Dhoom: 3">Dhoom: 3 (U/A)</option>
+<option value="Sholay 3D">Sholay 3D (U)</option>
+<option value="Yaariyan">Yaariyan (U/A)</option>    
+    
+<option value="American Hustle">American Hustle (A)</option>
+<option value="Carrie">Carrie (A)</option>
+<option value="Frozen (3D English)">Frozen (3D English) (U)</option>
+<option value="Mandela: Long Walk To Freedom">Mandela: Long Walk To Freedom (U/A)</option>
+<option value="The Legend Of Hercules">The Legend Of Hercules (3D) (U/A)</option>    
+<option value="The Wolf of Wall Street">The Wolf of Wall Street (A)</option>
+<option value="Timepass">TP (Timepass) (U)</option>
+</select>
+</td></tr>
+
+<tr>
+<td><label for="choose_cinema">Choose Cinema</label></td>
+<td><input type="text" id="choose_cinema" name="cinema" list="cinema_list" required/>
+<datalist id="cinema_list">
+<option label="Abhiruchi City Pride: Sinhagad Road" value="Abhiruchi City Pride: Sinhagad Road"/>    
+<option label="BIG Cinemas: Chinchwad" value="BIG Cinemas: Chinchwad"/>    
+<option label="BIG Cinemas: Kalyani Nagar" value="BIG Cinemas: Kalyani Nagar"/>    
+<option label="Bollywood Multiplex: Kharadi" value="Bollywood Multiplex: Kharadi"/>    
+<option label="CineMAX: Inorbit Mall, Pune Nagar Road" value="CineMAX: Inorbit Mall, Pune Nagar Road"/>    
+<option label="Cinepolis - VIP: Seasons Mall, Magarpatta City" value="Cinepolis - VIP: Seasons Mall, Magarpatta City"/>    
+<option label="Cinepolis: Seasons Mall, Magarpatta City" value="Cinepolis: Seasons Mall, Magarpatta City"/>    
+<option label="City Pride: Kothrud" value="City Pride: Kothrud"/>    
+<option label="City Pride: Mangala Cinema" value="City Pride: Mangala Cinema"/>    
+<option label="City Pride: R Deccan" value="City Pride: R Deccan"/>    
+<option label="City Pride: Satara Road" value="City Pride: Satara Road"/>    
+<option label="E-SQUARE Konark: Kondhwa" value="E-SQUARE Konark: Kondhwa"/>    
+<option label="E-SQUARE Victory: Camp, Pune" value="E-SQUARE Victory: Camp, Pune"/>    
+<option label="E-SQUARE Vishal: Pimpri" value="E-SQUARE Vishal: Pimpri"/>    
+<option label="E-SQUARE: University Road" value="E-SQUARE: University Road"/>    
+<option label="Fun Time Multiplex: Sinhagad Road" value="Fun Time Multiplex: Sinhagad Road"/>    
+<option label="INOX Fun N Shop, Fatima Nagar" value="INOX Fun N Shop, Fatima Nagar"/>    
+<option label="INOX Jai Ganesh: Akurdi" value="INOX Jai Ganesh: Akurdi"/>    
+<option label="INOX: Amanora Town Centre" value="INOX: Amanora Town Centre"/>    
+<option label="INOX: Bund Garden Road" value="INOX: Bund Garden Road"/>    
+
+<option label="Laxmi Narayan Cinema: Satara Road" value="Laxmi Narayan Cinema: Satara Road"/>    
+<option label="Mukta A2 Cinema: Junnar" value="Mukta A2 Cinema: Junnar"/>    
+<option label="PVR: Koregaon Park Plaza" value="PVR: Koregaon Park Plaza"/>    
+<option label="PVR: Phoenix Market City, Pune" value="PVR: Phoenix Market City, Pune"/>    
+<option label="Shri Shivaji Talkies: Talegaon" value="Shri Shivaji Talkies: Talegaon"/>
+</datalist>
+</td>
+</tr>
+
+<tr>
+<td><label>Select Date</label></td>
+<td><input type="date" name="date" id="select_date" required /></td>
+</tr>
+
+
+<tr>
+<td><label for="email">Enter Email</label></td>
+<td><input type="email" name="email" id="email" placeholder="test@mail.com" required/></td>
+</tr>
+
+
+<tr>
+<td><label for="no_of_tickets">Number of Tickets</label></td>
+<td><input type="number" name="no_of_tickets" id="no_of_tickets" required/></td>
+</tr>
+
+<tr>
+<td><label>Total Price</label></td>
+<td><span id="result"></span></td>
+</tr>
+
+<tr>
+<td>  <input type="submit" value="Book Tickets"></td>
+</tr>
+
+</table>
+</form>
+</fieldset>
+
+</div>
+<div style="float:right; width:30%; ; background-color:#B4ECF2;">
+<h4>Movies Booked till date</h4>
+<ol id="movieList">
+
+</ol>
+</div>
+</fieldset>
+
+ 
+
+</div>
+</body>
+</html> 
