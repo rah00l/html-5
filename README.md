@@ -1,5 +1,7 @@
+HTML 5 
+======
 Tested On firefox 26, Chrome Version 29.0.1547.62
-===========================================================
+
 Main Html file - MovieBokking.html
 JavaScript File - scripts/calculations.js
 
@@ -11,14 +13,14 @@ JavaScript File - scripts/calculations.js
 Calculations :-
 
 * No discount applicable -- (Week-end Ticket booking ...within first 10 movies)
-  -----------------------------------------------------------------------------
+
 total_amount = ticketPrice * no.of.tickets
 e.g.
  total_amount = 100 * 2
      total_amount = 200 RS
 
 * Week Day ticket booking having 5% discount -(2 Tickets each 100 RS 5% discount)
-  ----------------------------------------------------------------------------------------
+
 amount = ticketPrice * no.of.tickets
 discount = amount*discount %
 
@@ -34,7 +36,7 @@ e.g.
                     = 190 RS
 
 * Movies booked till date more than 10 then having 10% discount -(2 Tickets each 100 RS 10% discount)
-  ----------------------------------------------------------------------------------------
+
 amount = ticketPrice * no.of.tickets
 discount = amount*discount %
 
